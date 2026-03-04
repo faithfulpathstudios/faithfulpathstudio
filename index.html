@@ -3,13 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Professional Profile</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<title>FaithfulPathStudio – professional profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+  rel="stylesheet">
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512‑…"
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
-/* =====================
-   VARIABLES & RESET
-===================== */
 :root {
     --primary: #0a3d91;
     --secondary: #6a004d;
@@ -17,38 +22,56 @@
     --dark: #222;
     --light: #777;
     --glass: rgba(255,255,255,0.85);
+    --transition: 0.25s ease;
+}
+
+[data-theme="dark"] {
+    --primary: #1e3a5f;
+    --secondary: #3a2b4a;
+    --accent: #ff6584;
+    --dark: #fff;
+    --light: #ccc;
+    --glass: rgba(0,0,0,0.65);
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", system-ui, sans-serif;
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: "Inter", system-ui, sans-serif;
 }
 
-/* =====================
-   BODY
-===================== */
 body {
     min-height: 100vh;
+    padding-top: 80px;            /* header height */
     background: linear-gradient(135deg, var(--primary), var(--secondary));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    display: flex; flex-direction: column; align-items: center;
+    transition: background .3s;
 }
 
-/* =====================
-   CONTAINER
-===================== */
 .container {
-    width: 100%;
-    max-width: 420px;
+    width: 100%; max-width: 420px;
+    padding: 0 20px;
 }
 
-/* =====================
-   CARD
-===================== */
+.site-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: var(--glass);
+    backdrop-filter: blur(14px);
+    z-index: 1000;
+}
+.site-header .container {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+}
+.site-header .logo {
+    font-size: 1.25rem; font-weight: 700; color: var(--dark);
+    text-decoration: none;
+}
+
+.theme-toggle {
+    background: none; box-shadow: none; padding: 0;
+    color: var(--dark);
+}
+
 .card {
     background: var(--glass);
     backdrop-filter: blur(14px);
@@ -59,142 +82,111 @@ body {
     animation: fadeIn 0.8s ease;
 }
 
-/* =====================
-   PROFILE IMAGE
-===================== */
 .profile-img {
-    width: 130px;
-    height: 130px;
+    width: 130px; height: 130px;
     margin: 0 auto 15px;
     border-radius: 50%;
     padding: 4px;
     background: linear-gradient(135deg, var(--primary), var(--accent));
 }
-
 .profile-img img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #fff;
+    width:100%; height:100%; border-radius:50%;
+    object-fit:cover; background:#fff;
 }
 
-/* =====================
-   TEXT
-===================== */
-h2 {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--dark);
+h2 { font-size:24px; font-weight:700; color:var(--dark); }
+.verified { color:#1da1f2; font-size:18px; }
+.username { font-size:14px; color:var(--light); margin:6px 0 12px; }
+.bio { font-size:14px; line-height:1.6; color:#444; margin-bottom:22px; }
+.connect {
+    margin-bottom:15px;
+    font-style:italic;
+    color:#666;
+    font-size:13px;
 }
 
-.verified {
-    color: #1da1f2;
-    font-size: 18px;
-}
-
-.username {
-    font-size: 14px;
-    color: var(--light);
-    margin: 6px 0 12px;
-}
-
-.bio {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #444;
-    margin-bottom: 22px;
-}
-
-/* =====================
-   STATS
-===================== */
 .stats {
-    display: flex;
-    justify-content: space-between;
-    background: rgba(0,0,0,0.05);
-    padding: 15px;
-    border-radius: 18px;
-    margin-bottom: 25px;
+    display:flex; justify-content:space-between;
+    background:rgba(0,0,0,0.05); padding:15px;
+    border-radius:18px; margin-bottom:25px;
 }
+.stats div { flex:1; }
+.stats h3 { font-size:18px; color:var(--dark); }
+.stats p { font-size:12px; color:var(--light); }
 
-.stats div {
-    flex: 1;
-}
-
-.stats h3 {
-    font-size: 18px;
-    color: var(--dark);
-}
-
-.stats p {
-    font-size: 12px;
-    color: var(--light);
-}
-
-/* =====================
-   BUTTONS
-===================== */
 .links {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    max-height:0; overflow:hidden; opacity:0;
+    display:flex; flex-direction:column; gap:14px;
+    transition: max-height .3s ease, opacity .3s ease;
+}
+.links.show { max-height:1000px; opacity:1; }
+
+.actions {
+    display:flex; justify-content:center; gap:8px; margin-top:8px;
 }
 
 .btn {
-    padding: 15px;
-    border-radius: 14px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #fff;
-    text-decoration: none;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    cursor: pointer;
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:15px; border-radius:14px; font-size:15px;
+    font-weight:600; color:#fff; text-decoration:none;
+    background:linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+    transition:transform var(--transition), box-shadow var(--transition);
+    cursor:pointer;
 }
-
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 14px 35px rgba(0,0,0,0.3);
-}
+.btn:hover,
+.btn:focus-visible { transform:translateY(-3px);
+    box-shadow:0 14px 35px rgba(0,0,0,0.3); outline:none; }
+.btn:focus-visible { outline:2px solid var(--accent); }
 
 .follow {
     background: linear-gradient(135deg, var(--accent), #ff3c7a);
 }
 
-/* =====================
-   FOOTER
-===================== */
 .footer {
-    margin-top: 20px;
-    font-size: 12px;
-    color: var(--light);
+    margin-top:40px; font-size:12px; color:var(--light);
+    text-align:center;
 }
 
-/* =====================
-   ANIMATION
-===================== */
+@media (min-width: 600px) {
+    .container { max-width: 600px; }
+    .card { padding:45px 35px; }
+    .btn { padding:18px; font-size:16px; }
+    .profile-img { width:150px; height:150px; }
+    .stats { padding:20px; }
+    /* show links as grid on wider screens */
+    .links { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); }
+}
+
+@media (min-width: 900px) {
+    .container { max-width: 800px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card { animation: none; }
+}
+
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity:0; transform:translateY(25px); }
+    to   { opacity:1; transform:translateY(0); }
 }
 </style>
 </head>
 
 <body>
+<header class="site-header">
+  <div class="container">
+    <a href="#" class="logo">FaithfulPathStudio</a>
+    <button id="theme-button" class="btn theme-toggle" aria-label="Toggle dark/light mode">
+      <i class="fa-solid fa-moon"></i>
+    </button>
+  </div>
+</header>
 
-<div class="container">
-    <div class="card">
-
+<main id="hero" class="container">
+    <section class="card">
         <div class="profile-img">
-            <img src="image.jpg" alt="Profile Image">
+            <img src="image.jpg" alt="FaithfulPathStudio logo">
         </div>
 
         <h2>FaithfulPathStudio<span class="verified">✓</span></h2>
@@ -202,138 +194,121 @@ h2 {
 
         <p class="bio">
             Faith and media, together in one path.<br>
-            📊 positive.truthful.uplifting 
+            📊 positive.truthful.uplifting
         </p>
 
-        <div class="stats">
+        <div class="stats" data-duration="2000">
             <div>
-                <h3 id="posts">25</h3>
+                <h3 id="posts">0</h3>
                 <p>Posts</p>
             </div>
             <div>
-                <h3 id="followers">2K</h3>
+                <h3 id="followers">0</h3>
                 <p>Followers</p>
             </div>
             <div>
-                <h3 id="following">24</h3>
+                <h3 id="following">0</h3>
                 <p>Following</p>
             </div>
         </div>
 
-        <p class="bio" style="margin-bottom: 15px; font-style: italic; color: #666; font-size: 13px;">
-            Connect with us on your favorite platform
-        </p>
+        <p class="connect">Connect with us on your favorite platform</p>
 
-        <div class="links">
-    <a href="https://www.instagram.com/faithfulpathstudios?igsh=dW42NXk2MjR3c2tl" class="btn" target="_blank">
-        <i class="fa-brands fa-instagram"></i> Instagram
-    </a>
+        <div class="actions">
+            <button id="hub-button" class="btn follow"
+                    aria-expanded="false">Show all handles</button>
+        </div>
 
-    <a href="https://tiktok.com/@faithfulpathstudios?_r=1&_t=ZS-93BPksG3OIn" class="btn" target="_blank">
-        <i class="fa-brands fa-tiktok"></i> TikTok
-    </a>
+        <div id="hub-links" class="links" aria-hidden="true">
+            <a href="https://www.instagram.com/faithfulpathstudios?igsh=dW42NXk2MjR3c2tl"
+               class="btn" target="_blank">
+                <i class="fa-brands fa-instagram"></i>&nbsp;Instagram
+            </a>
+            <a href="https://tiktok.com/@faithfulpathstudios?_r=1&_t=ZS-93BPksG3OIn"
+               class="btn" target="_blank">
+                <i class="fa-brands fa-tiktok"></i>&nbsp;TikTok
+            </a>
+            <a href="https://youtube.com/@faithfulpathstudio" class="btn" target="_blank">
+                <i class="fa-brands fa-youtube"></i>&nbsp;YouTube
+            </a>
+            <a href="https://x.com/Fpathstudios" class="btn" target="_blank">
+                <i class="fa-brands fa-x-twitter"></i>&nbsp;X (Twitter)
+            </a>
+            <a href="https://www.facebook.com/faithfulpathstudio" class="btn" target="_blank">
+                <i class="fa-brands fa-facebook"></i>&nbsp;Facebook
+            </a>
+            <a href="https://whatsapp.com/channel/0029VbBsPpdAInPmTdSpTj1s"
+               class="btn" target="_blank">
+                <i class="fa-brands fa-whatsapp"></i>&nbsp;WhatsApp
+            </a>
+            <a href="https://snapchat.com/add/fpathstudios?share_id=1qZY_FbBSfQ&amp;locale=en-GB"
+               class="btn" target="_blank">
+                <i class="fa-brands fa-snapchat"></i>&nbsp;Snapchat
+            </a>
+        </div>
 
-    <a href="https://youtube.com/@faithfulpathstudio" class="btn" target="_blank">
-        <i class="fa-brands fa-youtube"></i> YouTube
-    </a>
+        <footer class="footer">© 2026 FPS • All Rights Reserved</footer>
+    </section>
+</main>
 
-    <a href="https://x.com/Fpathstudios" class="btn" target="_blank">
-        <i class="fa-brands fa-x-twitter"></i> X (Twitter)
-    </a>
-
-    <a href="https://www.facebook.com/faithfulpathstudio" class="btn" target="_blank">
-        <i class="fa-brands fa-facebook"></i> Facebook
-    </a>
-
-    <a href="https://whatsapp.com/channel/0029VbBsPpdAInPmTdSpTj1s" class="btn" target="_blank">
-        <i class="fa-brands fa-whatsapp"></i> WhatsApp
-    </a>
-
-    <a href="https://snapchat.com/add/fpathstudios?share_id=1qZY_FbBSfQ&locale=en-GB" class="btn" target="_blank">
-        <i class="fa-brands fa-snapchat"></i> Snapchat
-    </a>
-
-    <button class="btn follow" id="followBtn">Follow</button>
-</div>
-
-        <p class="footer">© 2026 FPS • All Rights Reserved</p>
-
-    </div>
-</div>
+<footer class="site-footer container">
+    <p>Made with care by FaithfulPathStudio.</p>
+</footer>
 
 <script>
-/* =====================
-   JAVASCRIPT INTERACTION
-===================== */
-const followBtn = document.getElementById("followBtn");
-const followers = document.getElementById("followers");
-const posts = document.getElementById("posts");
-const following = document.getElementById("following");
+document.addEventListener('DOMContentLoaded', () => {
+    const postsEl     = document.getElementById('posts');
+    const followersEl = document.getElementById('followers');
+    const followingEl = document.getElementById('following');
+    const hubBtn      = document.getElementById('hub-button');
+    const hubLinks    = document.getElementById('hub-links');
+    const themeBtn    = document.getElementById('theme-button');
 
-let isFollowing = false;
-let followerCount = 2000;
+    const format = n => n >= 1000
+        ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'K'
+        : n;
 
-function formatFollowers(count) {
-    if (count >= 1000) {
-        return (count / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-    }
-    return count;
-}
-
-// Animate stats on page load
-function animateStats() {
-    const duration = 2000; // 2 seconds
-    const startTime = Date.now();
-
-    const stats = [
-        { element: posts, target: 25 },
-        { element: followers, target: 2000, formatter: formatFollowers },
-        { element: following, target: 24 }
-    ];
-
-    function updateCounts() {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-
-        stats.forEach(stat => {
-            const currentCount = Math.floor(stat.target * progress);
-            const formatter = stat.formatter || ((count) => count);
-            stat.element.textContent = formatter(currentCount);
-        });
-
-        if (progress < 1) {
-            requestAnimationFrame(updateCounts);
+    (function animate() {
+        const duration = 2000;
+        const start = performance.now();
+        const targets = [25, 2000, 24];
+        const els = [postsEl, followersEl, followingEl];
+        function frame(now) {
+            const progress = Math.min((now - start)/duration, 1);
+            els.forEach((el,i) => el.textContent =
+                format(Math.floor(targets[i]*progress)));
+            if (progress < 1) requestAnimationFrame(frame);
         }
+        requestAnimationFrame(frame);
+    }());
+
+    function toggleHub(force) {
+        const open = force !== undefined ? force : !hubLinks.classList.contains('show');
+        hubLinks.classList.toggle('show', open);
+        hubBtn.setAttribute('aria-expanded', String(open));
+        hubBtn.textContent = open ? 'Hide handles' : 'Show all handles';
+        localStorage.setItem('hub-expanded', open);
     }
+    hubBtn.addEventListener('click', () => toggleHub());
+    if (localStorage.getItem('hub-expanded') === 'true') toggleHub(true);
 
-    requestAnimationFrame(updateCounts);
-}
-
-// Run animation when page loads
-window.addEventListener("load", animateStats);
-
-followBtn.addEventListener("click", () => {
-    isFollowing = !isFollowing;
-
-    if (isFollowing) {
-        followerCount += 121;
-        followBtn.textContent = "Following ✓";
-        followBtn.style.background =
-            "linear-gradient(135deg, #28a745, #5cd65c)";
-    } else {
-        followerCount -= 121;
-        followBtn.textContent = "Follow";
-        followBtn.style.background =
-            "linear-gradient(135deg, #b0005a, #ff3c7a)";
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        themeBtn.innerHTML = theme === 'dark'
+            ? '<i class="fa-solid fa-sun"></i>'
+            : '<i class="fa-solid fa-moon"></i>';
+        localStorage.setItem('theme', theme);
     }
-
-    followers.textContent = formatFollowers(followerCount);
+    themeBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+    const saved = localStorage.getItem('theme');
+    if (saved) setTheme(saved);
+    else setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
 });
 </script>
-
 </body>
-
 </html>
-
 
 

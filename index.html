@@ -215,8 +215,7 @@ h2 { font-size:24px; font-weight:700; color:var(--dark); }
         <p class="connect">Connect with us on your favorite platform</p>
 
         <div class="actions">
-            <button id="hub-button" class="btn follow"
-                    aria-expanded="false">Show all handles</button>
+            <button id="hub-button" class="btn follow">Show all handles</button>
         </div>
 
         <div id="hub-links" class="links" aria-hidden="true">
@@ -282,15 +281,12 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(frame);
     }());
 
-    function toggleHub(force) {
-        const open = force !== undefined ? force : !hubLinks.classList.contains('show');
-        hubLinks.classList.toggle('show', open);
-        hubBtn.setAttribute('aria-expanded', String(open));
-        hubBtn.textContent = open ? 'Hide handles' : 'Show all handles';
-        localStorage.setItem('hub-expanded', open);
-    }
-    hubBtn.addEventListener('click', () => toggleHub());
-    if (localStorage.getItem('hub-expanded') === 'true') toggleHub(true);
+    /* one‑shot reveal – button disappears after click */
+    hubBtn.addEventListener('click', () => {
+        hubLinks.classList.add('show');
+        hubLinks.setAttribute('aria-hidden', 'false');
+        hubBtn.remove();
+    });
 
     function setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
